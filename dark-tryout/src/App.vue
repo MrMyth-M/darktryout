@@ -5,7 +5,7 @@ import WeatherView from './components/WeatherView.vue'
 </script>
 
 <template>
-<div class="p-12 mt-10">
+<div class="p-4 mt-4">
   <WeatherView></WeatherView>
 </div>
 

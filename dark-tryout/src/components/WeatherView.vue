@@ -1,27 +1,27 @@
 <template>
     <div>
-        <h1 class="text-5xl font-bold mb-4">Weather</h1>
-        <div class="h-80 p-3 bg-gradient-to-r opacity-90 from-midnight to-pink font-light shadow-xl rounded-3xl" v-if="dataFetched">
-            <div class="bg-dark h-full rounded-xl text-4xl text-left p-8 grid grid-cols-3">
-                <div class="h-1/2 col-span-2">
+        <h1 @click="this.fetchWeatherData(10,10)" class="text-5xl font-bold mb-4">Weather</h1>
+        <div class="h-48 p-2 bg-gradient-to-r opacity-90 from-midnight to-pink font-light shadow-xl rounded-3xl">
+            <div class="bg-dark h-full rounded-xl text-3xl text-left p-4">
+                <div class="float-left">
                     <!-------Location------------>
-                    <fa icon="location-dot" class="text-3xl float-left mr-4 mt-2"/>
-                    <p class="text-4xl p-1">{{ cityName }}</p>   
+                    <fa icon="location-dot" class="text-xl float-left mr-2"/>
+                    <p class="text-2xl float-right mt-[-0.3rem]">{{ cityName }}</p>   
                     <!-------Temperature--------->
-                    <p class="text-7xl mt-1 mb-2.5 ml-10">{{ Math.round(currentWeather.temp) }} °C</p>
+                    <p class="text-5xl mb-2.5 ml-10">{{ Math.round(currentWeather.temp) }} °C</p>
                 </div>
-                <div class="h-1/3 ml-16">
-                    <fa icon="sun" class="text-3xl float-left"/>
-                    <p class="text-2xl ml-10">{{ fromUnixTime(currentWeather.sunrise) }}</p>
-                    <fa icon="moon" class="text-3xl float-left"/>
-                     <p class="text-2xl ml-10">{{ fromUnixTime(currentWeather.sunset) }}</p>
+                <div class="w-32 float-right text-right">
+                    <fa icon="sun" class="text-xl float-left ml-12 mt-1"/>
+                    <p class="text-xl">{{ fromUnixTime(currentWeather.sunrise) }}</p>
+                    <fa icon="moon" class="text-xl float-left ml-12 mt-1"/>
+                     <p class="text-xl">{{ fromUnixTime(currentWeather.sunset) }}</p>
                 </div>
-                <div class="col-span-3 text-xl">
-                    <div v-for="entry in this.hourlyWeather" class="w-1/6 float-left" :key="entry.dt">
-                        <div class="m-auto text-center">
+                <div class="w-full grid grid-cols-6 text-sm text-center">
+                    <div v-for="entry in this.hourlyWeather" :key="entry.dt">
+                        <div class="m-auto">
                             <p class="mb-[-1rem]">{{ fromUnixTime(entry.dt) }}</p>
                             <img  :src="`https://openweathermap.org/img/wn/${entry.weather[0].icon}@2x.png`" :alt="entry.weather[0].main">
-                            <p class="mt-[-1rem]">{{ Math.round(entry.temp) }} °C</p>
+                            <p class="mt-[-0.8rem]">{{ Math.round(entry.temp) }} °C</p>
                         </div>
                     </div>
                 </div>
