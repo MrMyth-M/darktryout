@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 @click="this.fetchWeatherData(10,10)" class="text-5xl font-bold mb-4">Weather</h1>
+        <h1 class="text-5xl font-bold mb-4">{{ text }}</h1>
         <div class="h-48 p-2 bg-gradient-to-r opacity-90 from-midnight to-pink font-light shadow-xl rounded-3xl">
             <div class="bg-dark h-full rounded-xl text-3xl text-left p-4">
                 <div class="float-left">
@@ -31,26 +31,31 @@
 </template>
 
 <script>
+import { Geolocation } from '@capacitor/geolocation'
 export default {
     data() {
         return {
             currentWeather: [],
             hourlyWeather: [],
             cityName: "",
+            text: 'Weather',
             apiKey: "236db6590c47647c64b7a8f04d41e518",
             dataFetched: false
         }
     },
 
     async created() {
-        await this.fetchCityName()
-        await this.fetchWeatherData()
+        console.warn("CREATED")
+        const coords = await this.getCurrentLocation()
+        await this.fetchCityName(coords.latitude, coords.longitude)
+        await this.fetchWeatherData(coords.latitude, coords.longitude)
+        console.warn("END CREATED")
     },
 
 
     methods: {
-        async fetchWeatherData() {
-            const url = `https://api.openweathermap.org/data/2.5/onecall?units=metric&lat=${48.075077}&lon=${14.460545}&exclude=minutely,daily&appid=${this.apiKey}`
+        async fetchWeatherData(lat, lon) {
+            const url = `https://api.openweathermap.org/data/2.5/onecall?units=metric&lat=${lat}&lon=${lon}&exclude=minutely,daily&appid=${this.apiKey}`
             const response = await fetch(url)
             const json = await response.json()
             this.currentWeather = json.current
@@ -58,8 +63,8 @@ export default {
             this.dataFetched = true
         },
 
-        async fetchCityName() {
-            const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${48.075077}&lon=${14.460545}&appid=${this.apiKey}`
+        async fetchCityName(lat, lon) {
+            const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${this.apiKey}`
             const response = await fetch(url)
             const json = await response.json()
             this.cityName = json[0].name
@@ -76,6 +81,11 @@ export default {
                 minutes = "0" + minutes
             }
             return hours + ":" + minutes
+        },
+
+        async getCurrentLocation() {
+            const coordinates = await Geolocation.getCurrentPosition();
+            return coordinates.coords
         }
     }
 }
