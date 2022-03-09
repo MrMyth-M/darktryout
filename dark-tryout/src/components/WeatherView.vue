@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-5xl font-bold mb-4">Weather</h1>
+        <h1 @click="getGeolocation" class="text-5xl font-bold mb-4">Weather</h1>
         <div class="h-80 p-3 bg-gradient-to-r opacity-90 from-midnight to-pink font-light shadow-xl rounded-3xl" v-if="dataFetched">
             <div class="bg-dark h-full rounded-xl text-4xl text-left p-8 grid grid-cols-3">
                 <div class="h-1/2 col-span-2">
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { Geolocation } from '@capacitor/geolocation'
 export default {
     data() {
         return {
@@ -43,14 +44,16 @@ export default {
     },
 
     async created() {
-        await this.fetchCityName()
-        await this.fetchWeatherData()
+       
+        const latlon = await this.getGeolocation()
+        await this.fetchCityName(latlon.lat, latlon.lon)
+        await this.fetchWeatherData(latlon.lat, latlon.lon)
     },
 
 
     methods: {
-        async fetchWeatherData() {
-            const url = `https://api.openweathermap.org/data/2.5/onecall?units=metric&lat=${48.075077}&lon=${14.460545}&exclude=minutely,daily&appid=${this.apiKey}`
+        async fetchWeatherData(lat, lon) {
+            const url = `https://api.openweathermap.org/data/2.5/onecall?units=metric&lat=${lat}&lon=${lon}&exclude=minutely,daily&appid=${this.apiKey}`
             const response = await fetch(url)
             const json = await response.json()
             this.currentWeather = json.current
@@ -58,8 +61,8 @@ export default {
             this.dataFetched = true
         },
 
-        async fetchCityName() {
-            const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${48.075077}&lon=${14.460545}&appid=${this.apiKey}`
+        async fetchCityName(lat, lon) {
+            const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${this.apiKey}`
             const response = await fetch(url)
             const json = await response.json()
             this.cityName = json[0].name
@@ -76,6 +79,12 @@ export default {
                 minutes = "0" + minutes
             }
             return hours + ":" + minutes
+        },
+
+        async getGeolocation() {
+            const coordinates = await Geolocation.getCurrentPosition();
+            console.log('Current position:', coordinates);
+            return {lat: coordinates.coords.latitude, lon: coordinates.coords.longitude}
         }
     }
 }
