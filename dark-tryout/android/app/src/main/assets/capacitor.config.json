@@ -1,0 +1,6 @@
+{
+	"appId": "at.mrmyth.dark",
+	"appName": "dark-tryout",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
