@@ -1,11 +1,13 @@
 <template>
     <div class="w-5/6 mt-10 m-auto text-2xl">
-        <fa icon="sun" class="h-40"/><br>
+        <fa :icon="icon" class="h-40"/><br>
         <h1 class="text-4xl font-bold mt-4">{{ device.name }}</h1>
         <div class="font-bold">
             <div class="mt-8">
                 <p>Icon</p>
-                <select class="w-16 border-slate-800 bg-slate-800 rounded-lg outline-none border-4 focus:border-fuchsia-800 duration-200" name="" id=""></select>
+                <select v-model="icon" class="text-center w-16 border-slate-800 bg-slate-800 rounded-lg outline-none border-4 focus:border-fuchsia-800 duration-200" name="" id="">
+                    <option class="text-center" v-for="icon in icons" :key="icon[0]" :value="icon[0]">{{icon[1]}}</option>
+                </select>
             </div>
             <div class="mt-3">
                 <p>Device Name</p>
@@ -22,7 +24,7 @@
                 </select>
             </div>
             <div class="mt-12">
-                <button class="w-40 p-2 rounded-lg bg-gradient-to-b from-purple-800 to-pink-600">Save</button>
+                <button @click="save" class="w-40 p-2 rounded-lg bg-gradient-to-b from-purple-800 to-pink-600 active:scale-110 duration-200">Save</button>
             </div>
         </div>
     </div>
@@ -34,7 +36,9 @@ export default {
     data() {
         return {
             device: [],
-            rooms: []
+            rooms: [],
+            icons: [["tv", ''], ["lightbulb", ''], ['car', ''] ],
+            icon: ""
         }
     },
 
@@ -46,6 +50,9 @@ export default {
 }
 </script>
 }
-<style>
 
+<style>
+    select {
+        font-family: 'FontAwesome';
+    }
 </style>
