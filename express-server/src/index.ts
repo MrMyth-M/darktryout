@@ -3,8 +3,12 @@ import router from "./app-router"
 import {loadSettings} from "./settings"
 import em from "./entity-manager"
 
+const cors = require('cors')
 const app = express()
-app.use(express.static("html"))
+
+app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
     if (req.url.startsWith("/api/")) {

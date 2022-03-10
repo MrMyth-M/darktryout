@@ -19,6 +19,12 @@ class EntityManager {
     createQuery<T>(table: string) {
         return this._knex<T>(table)
     }
+    getById<T>(table: string, id: number) {
+        return this._knex(table).where('id', id)
+    }
+    insert<T>(table: string, entry : T) {
+        return this._knex(table).insert(entry)
+    }
 }
 
 export default new EntityManager()

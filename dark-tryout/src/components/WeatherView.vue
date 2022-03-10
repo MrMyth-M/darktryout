@@ -1,14 +1,15 @@
 <template>
     <div>
         <h1 class="text-5xl font-bold mb-4">{{ text }}</h1>
-        <div class="h-48 p-2 bg-gradient-to-r opacity-90 from-midnight to-pink font-light shadow-xl rounded-3xl">
-            <div class="bg-dark h-full rounded-xl text-3xl text-left p-4">
+        <div class="h-48 p-2 bg-gradient-to-r opacity-90 from-purple-800 to-pink-400 font-light shadow-xl rounded-3xl">
+            <div class="bg-slate-800 h-full rounded-xl text-3xl text-left p-4">
                 <div class="float-left">
                     <!-------Location------------>
                     <fa icon="location-dot" class="text-xl float-left mr-2"/>
-                    <p class="text-2xl float-right mt-[-0.3rem]">{{ cityName }}</p>   
+                    <p class="text-2xl float-right mt-[-0.3rem]  float-left">{{ cityName }}</p>   
                     <!-------Temperature--------->
-                    <p class="text-5xl mb-2.5 ml-10">{{ Math.round(currentWeather.temp) }} °C</p>
+                    <br>
+                    <p class="text-5xl mb-2.5 ml-6 mt-[-0.5rem] float-left">{{ Math.round(currentWeather.temp) }} °C</p>
                 </div>
                 <div class="w-32 float-right text-right">
                     <fa icon="sun" class="text-xl float-left ml-12 mt-1"/>
