@@ -1,6 +1,6 @@
 {
   "appId": "at.mrmyth.dark",
-  "appName": "dark-tryout",
+  "appName": "android",
   "webDir": "dist",
   "bundledWebRuntime": false
 }

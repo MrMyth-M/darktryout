@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-5xl font-bold mb-4">{{ text }}</h1>
         <div class="h-48 p-2 bg-gradient-to-r opacity-90 from-purple-800 to-pink-400 font-light shadow-xl rounded-3xl">
-            <div class="bg-slate-800 h-full rounded-xl text-3xl text-left p-4">
+            <div class="bg-slate-800 h-full rounded-2xl text-3xl text-left p-4">
                 <div class="float-left">
                     <!-------Location------------>
                     <fa icon="location-dot" class="text-xl float-left mr-2"/>

@@ -1,8 +1,7 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import WeatherView from './components/WeatherView.vue'
-import DeviceCard from './components/DeviceCard.vue'
+import 'sweetalert2/src/sweetalert2.scss'
 </script>
 
 <template>

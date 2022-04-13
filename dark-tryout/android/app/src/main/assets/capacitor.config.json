@@ -1,0 +1,6 @@
+{
+	"appId": "at.mrmyth.dark",
+	"appName": "android",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
